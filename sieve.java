@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class Sieve {
@@ -13,7 +14,7 @@ public class Sieve {
     
     public static void printsieve(int[] results, boolean[] prime) {
 	    System.out.print("> ");
-	    char c = ' ';
+	    char caNum = ' ';
 
 	    // Just loop through the array and print the values.
 	    // Put a (T) after each one if it has been marked
@@ -21,8 +22,8 @@ public class Sieve {
 	    // composite (not prime).
 	    
 	    for (int j = 0; j < results.length;) {
-		c = prime[j] ? 'T' : 'F';
-		System.out.print(results[j] + "(" + c + ") ");
+		caNum = prime[j] ? 'T' : 'F';
+		System.out.print(results[j] + "(" + caNum + ") ");
 		j++;
 	    }
 	    System.out.println();
@@ -34,12 +35,11 @@ public class Sieve {
      * @param results array of ints to print out
      */
     
-    public static void PrintSieve(int[] results) {
+    public static void printSieve(int[] results) {
 
 	// As long as there are elements in the array,
 	// print it.  Otherwise, print "BLANK".
-	
-	if (results.length == 0 || results != null) {
+	if (results.length != 1) {
 	    System.out.print("> ");
 	    for (int j = 1; j < results.length;) {
 		System.out.print(results[j] + " ");
@@ -51,12 +51,12 @@ public class Sieve {
     }
 
     /**
-     * @param s the size of the array to return
+     * @param saInput the size of the array to return.
      */
     
-    public static boolean[] getTrueArray(int s) {
-	boolean toReturn[] = new boolean[s];
-	for (int j = 0; j < s; j++) {
+    public static boolean[] getTrueArray(int saInput) {
+	boolean[] toReturn = new boolean[saInput];
+	for (int j = 0; j < saInput; j++) {
 	    toReturn[j] = true;
 	}
 	// Return an all-true array.
@@ -72,7 +72,7 @@ public class Sieve {
      * @return int[] the prime numbers from 1 to n 
      */
     
-    public static int[] convertResults(int[] results, boolean prime[] ) {
+    public static int[] convertResults(int[] results, boolean[] prime ) {
 
 	// Create an ArrayList.	 If a value is true for primality,
 	// add it to the array list.
@@ -80,7 +80,7 @@ public class Sieve {
 	ArrayList<Integer> actual = new ArrayList<Integer>();
 	for (int j = 0; j < results.length; j++) {
 	    if (prime[j]) {
-		actual.add(new Integer(j + 1));
+		actual.add(Integer.valueOf(j + 1));
 	    }
 	}
 
@@ -188,11 +188,10 @@ public class Sieve {
 	    if (toReturn < 1) {
 		// User did not enter a valid integer
 		throw new IllegalArgumentException();
-	    } else {
-	}
+	    }
 	} else {
 	    // User forgot to enter an argument!  
-	    new IllegalArgumentException();
+	    throw new IllegalArgumentException();
 	}
 	return toReturn;
     }
@@ -221,7 +220,7 @@ public class Sieve {
 	
 	try {
 	    _max = calculateMax(args);
-	} catch (Exception ex) {
+	} catch (IllegalArgumentException exp) {
 	    System.out.println("You forgot to enter a valid integer (> 0)!");
 	    System.out.println("Assuming you meant to type 100...");
 	    _max = 100;
@@ -230,7 +229,7 @@ public class Sieve {
 	// Calculate sieve and print it out
 	int[] sieve = generateSieve(_max);
 	int[] results = calculateSieve(sieve);
-	PrintSieve(results);
+	printSieve(results);
     }
     
 }
